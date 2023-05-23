@@ -45,14 +45,19 @@ async function run() {
     try {
       // await client.connect();
       const database = client.db("productsresellsite");
-      const categoriesCollection = database.collection("productCategories");
+     console.log('  Database Connection Successful');
       
     } 
+    catch(err) {
+      console.log('Failed to connect Database' , err);
+    }
     finally {
       
     }
   }
-  run().catch(console.dir);
+
+  run()
+  .catch(console.dir);
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
@@ -61,4 +66,3 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
-// 
