@@ -4,9 +4,9 @@ const jwt = require('jsonwebtoken');
 const cors = require('cors');
 const ObjectId = require('mongodb').ObjectId;
 require('dotenv').config();
-const app = express()
 const stripe = require("stripe")(process.env.STRIPE_SECRET);
 
+const app = express()
 const port = process.env.PORT || 5000;
 
 // middleware 
@@ -46,7 +46,10 @@ async function run() {
       // await client.connect();
       const database = client.db("productsresellsite");
      console.log('  Database Connection Successful');
-      
+
+      app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
+})
     } 
     catch(err) {
       console.log('Failed to connect Database' , err);
@@ -63,6 +66,4 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+
