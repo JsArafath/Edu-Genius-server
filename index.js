@@ -4,6 +4,7 @@ const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 require("dotenv").config();
 const port = process.env.PORT || 5000;
 const blogs = require("./routes/blogs");
+const courses = require("./routes/courses");
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.use(express.json());
 //endpoints that start with /doctors
 
 app.use("/blogs", blogs);
+app.use("/courses", courses);
 
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.k6jd9d0.mongodb.net/${process.env.DB}`;
 
