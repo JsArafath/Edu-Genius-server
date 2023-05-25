@@ -5,7 +5,8 @@ const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 
 let router = express.Router();
 
-const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.k6jd9d0.mongodb.net/${process.env.DB}`;
+
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.lx750.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 
 const client = new MongoClient(uri, {
   useNewUrlParser: true,
@@ -24,18 +25,18 @@ async function run(){
     router
       .route("/")
       .get(async(req, res) => {
-        ///doctors
+        ///blogs
         const blogsCollection = client.db(process.env.DB).collection('blogs');
         const query = {};
         const cursor = blogsCollection.find(query);
-        const doctors = await cursor.toArray();
-        res.send(doctors);
+        const blogs = await cursor.toArray();
+        res.send(blogs);
       })
       .post(async(req, res) => {
-        const newDoctor = req.body;
-        console.log(newDoctor);
+        const newblog = req.body;
+        console.log(newblog);
         const blogsCollection = client.db(process.env.DB).collection('blogs');
-        const result = await blogsCollection.insertOne(newDoctor);
+        const result = await blogsCollection.insertOne(newblog);
         res.send(result);
       });
 
@@ -46,9 +47,9 @@ async function run(){
         const blogsCollection = client.db(process.env.DB).collection('blogs');
         const query = {};
         const cursor = blogsCollection.find(query);
-        let doctor = await cursor.toArray();
-        doctor = await doctor.filter((doctor) => doctor._id == id);
-        res.send(doctor);
+        let blog = await cursor.toArray();
+        blog = await blog.filter((blog) => blog._id == id);
+        res.send(blog);
       })
       .post(async(req, res) => {
         const id = req.params.id;
@@ -56,12 +57,12 @@ async function run(){
         console.log(req.body);
         const query = { _id: ObjectId(id) };
         const blogsCollection = client.db(process.env.DB).collection('blogs');
-        let doctor = await blogsCollection.findOne(query);
-        console.log(doctor);      
-        doctor = {...doctor, ...req.body};
+        let blog = await blogsCollection.findOne(query);
+        console.log(blog);      
+        blog = {...blog, ...req.body};
         const result = await blogsCollection.updateOne(
           { _id: ObjectId(id) },
-          { $set: doctor }
+          { $set: blog }
         );
         const newResult = await blogsCollection.findOne(query);
         res.send(newResult);
