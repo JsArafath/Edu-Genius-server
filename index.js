@@ -5,7 +5,6 @@ require("dotenv").config();
 const port = process.env.PORT || 5000;
 
 // Routes Import 
-const courses = require("./routes/courses");
 const blogs = require("./routes/blogs");
 
 const app = express();
@@ -15,7 +14,6 @@ app.use(cors());
 app.use(express.json());
 
 // Route endpoints 
-app.use("/courses", courses);
 app.use("/blogs", blogs);
 
 // Server Starting 
