@@ -6,6 +6,7 @@ const port = process.env.PORT || 5000;
 
 // Routes Import 
 const blogs = require("./routes/blogs");
+const tutors = require("./routes/tutors");
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.use(express.json());
 
 // Route endpoints 
 app.use("/blogs", blogs);
+app.use("/tutors", tutors);
 
 // Server Starting 
 app.get("/", (req, res) => {
